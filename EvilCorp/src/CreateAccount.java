@@ -59,12 +59,14 @@ public class CreateAccount {
 	
 	public double subtract(double amount){
 		double total = balance - amount;
-		return total;
+		balance = total;
+		return balance;
 	}
 	
 	public double add(double amount){
 		double total = balance + amount;
-		return total;
+		balance = total;
+		return balance;
 	}
 	
 	public void addChecks(Check a_check) {
