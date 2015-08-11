@@ -14,7 +14,6 @@ public class EvilCorpApp {
 		int accountNum = 0;
 		double finalAmount = 0;
 		BankInfo bankInfo = new BankInfo();
-		//CheckInfo checkInfo = new CheckInfo();
 		System.out.println("Enter an account # or -1 to stop entering accounts:  ");
 		int resp = scan.nextInt();
 		while(resp != -1)

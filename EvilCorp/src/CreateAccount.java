@@ -45,6 +45,8 @@ public class CreateAccount {
 		{
 			double total = balance - thisCheck.getAmount();
 			balance = total;
+			if (balance < 0)
+				balance = balance -35;
 		}
 		
 		return balance;
