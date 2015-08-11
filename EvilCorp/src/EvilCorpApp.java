@@ -1,10 +1,12 @@
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 
 public class EvilCorpApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		
 		System.out.println("Welcome to Evil Corp Savings and Loan");
 		System.out.println("Please create the user account(s)");
@@ -12,6 +14,7 @@ public class EvilCorpApp {
 		int accountNum = 0;
 		double finalAmount = 0;
 		BankInfo bankInfo = new BankInfo();
+		//CheckInfo checkInfo = new CheckInfo();
 		System.out.println("Enter an account # or -1 to stop entering accounts:  ");
 		int resp = scan.nextInt();
 		while(resp != -1)
@@ -50,26 +53,52 @@ public class EvilCorpApp {
 				{
 					if(curr_account.getAccount() == accountNum)
 					{
-						System.out.println("Enter the transaction amount:  ");
-						double amount = scan.nextDouble();
-						if(type.equalsIgnoreCase("D"))
+						
+						if(type.equalsIgnoreCase("C"))
 						{
+							Check newCheck = new Check();
+							System.out.println("Enter the month");
+							int month = scan.nextInt();
+							newCheck.setMonth(month);
+							
+							System.out.println("Enter the day");
+							int day = scan.nextInt();
+							newCheck.setDay(day);
+							
+							System.out.println("Enter the year");
+							int year = scan.nextInt();
+							newCheck.setYear(year);
+							
+							System.out.println("Enter the amount");
+							double theAmount = scan.nextDouble();
+							newCheck.setAmount(theAmount);
+							
+							//checkInfo.addItem(newCheck);
+							curr_account.addChecks(newCheck);	
+							
+						}
+						
+						else if (type.equalsIgnoreCase("D"))
+						{
+							System.out.println("Enter the transaction amount:  ");
+							double amount = scan.nextDouble();
 							finalAmount = curr_account.add(amount);
 							curr_account.setBalance(finalAmount);
 						}
-						/*else if(type.equalsIgnoreCase("C"))
-						{
-							System.out.println("Enter the date of the check:  ");
-							String date = scan.next();
-							.setDate(date);
-						}*/
-						else
-						{		
-						finalAmount = curr_account.subtract(amount);
-						curr_account.setBalance(finalAmount);
+						else 
+						{	
+							System.out.println("Enter the transaction amount:  ");
+							double amount = scan.nextDouble();
+							finalAmount = curr_account.subtract(amount);
+							curr_account.setBalance(finalAmount);
 						}
+						
+						
+						
+						
+					
 					}
-				}
+				} 
 				
 				System.out.println("Enter a transaction type:\n C - Check\n DC - Debit Card\n D - Deposit\n W - Withdrawal\n or -1 to finish");
 				type = scan.next();
@@ -79,11 +108,11 @@ public class EvilCorpApp {
 		ArrayList<CreateAccount> finalList = bankInfo.getAccounts();
 		for(CreateAccount cacc : finalList)
 		{
-			System.out.println("The balance is: " +cacc.getBalance());
+			System.out.println("The balance for " +cacc.getAccount()+" : " +cacc.getBalance());
 		}
+		
+				
 		
 	}
 }
-
-
 

@@ -1,16 +1,23 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 
 public class CreateAccount {
 	
 	private int account;
 	private String name;
 	private double balance;
+	private CheckInfo checks;
 	
+	
+
 	public CreateAccount(){
 		
 		this.account = 0;
 		this.name = "";
 		this.balance = 0;
-		
+		checks = new CheckInfo();
 	}
 
 	public int getAccount() {
@@ -30,6 +37,16 @@ public class CreateAccount {
 	}
 
 	public double getBalance() {
+		
+		
+		ArrayList<Check> classcheck = checks.getChecks();
+		Collections.sort(classcheck,new TimeComp());
+		for(Check thisCheck : classcheck)
+		{
+			double total = balance - thisCheck.getAmount();
+			balance = total;
+		}
+		
 		return balance;
 	}
 
@@ -48,6 +65,25 @@ public class CreateAccount {
 		return total;
 	}
 	
+	public void addChecks(Check a_check) {
+		checks.addItem(a_check);
+	}
 	
+	
+	
+	class TimeComp implements Comparator<Check>{
+		 
+	    @Override
+	    public int compare(Check c1, Check c2) {
+	        if(c1.calculate() < c2.calculate()){
+	            return 1;
+	        } else {
+	            return -1;
+	        }
+	    }
+	}
+
+
+
 
 }
